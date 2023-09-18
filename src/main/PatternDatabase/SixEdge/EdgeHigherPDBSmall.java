@@ -1,0 +1,28 @@
+package main.PatternDatabase.SixEdge;
+
+import main.Enums.IndexEnums;
+import main.Model.CubeModel;
+
+public class EdgeHigherPDBSmall extends EdgePatternDatabaseSmall {
+    public EdgeHigherPDBSmall() {
+
+    }
+
+    public int getDatabaseIndex(CubeModel cm) {
+        int[] edgePerm = new int[6];
+        int[] edgeOrientations = new int[6];
+        int numIndexed = 0;
+        byte edgeInd = 0;
+
+        for (int i = 0; i < 12 && numIndexed != 6; i++) {
+            edgeInd = cm.getEdgeIndex(IndexEnums.EDGE.values()[i]);
+
+            if (edgeInd > 5) {
+                edgePerm[edgeInd - 6] = i;
+                edgeOrientations[edgeInd - 6] = cm.getEdgeOrientation(IndexEnums.EDGE.values()[i]);
+                numIndexed++;
+            }
+        }
+        return super.getDatabaseIndex(edgePerm, edgeOrientations);
+    }
+}
