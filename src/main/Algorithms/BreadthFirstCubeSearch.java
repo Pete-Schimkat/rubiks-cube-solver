@@ -13,7 +13,7 @@ public class BreadthFirstCubeSearch extends CubeSearcher {
 
     public ArrayList<Byte> moveToNode(BFSNode node, TwistStore moveStore, ArrayList<Byte> moveIndices){
         LinkedList<Byte> moveStack = new LinkedList<>();
-        byte moveIndex = 0;
+        byte moveIndex;
 
         while(node.parent != null) {
             moveStack.push(node.moveIndex);
@@ -61,7 +61,7 @@ public class BreadthFirstCubeSearch extends CubeSearcher {
             }
 
             for (byte moveIndex = 0; moveIndex < numMoves; moveIndex++) {
-                if (moveIndices.size() == 0 || !(this.pruner.prune(moveStore.getMove(moveIndex), moveStore.getMove(moveIndices.get(moveIndices.size() - 1))))) {
+                if (moveIndices.isEmpty() || !(this.pruner.prune(moveStore.getMove(moveIndex), moveStore.getMove(moveIndices.get(moveIndices.size() - 1))))) {
                     moveStore.move(moveIndex);
 
                     if (goal.index(cm, (byte) (moveIndices.size() + 1))) {

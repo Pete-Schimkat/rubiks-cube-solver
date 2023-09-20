@@ -33,7 +33,7 @@ public class ScrambleGenerator {
 
     public void generateScrambles(int length, int amountOfScrambles){
         StringBuilder scramblePlaceholder = new StringBuilder();
-        String movePlaceholder = "";
+        String movePlaceholder;
         for(int j = 0; j < amountOfScrambles; j++) {
             String lastMovePlaceholder = CubeModel.getMove(moveValues[random.nextInt(18)]);
             scramblePlaceholder.setLength(0);
@@ -41,8 +41,7 @@ public class ScrambleGenerator {
 
             for (int i = 0; i < length - 1; ) {
                 movePlaceholder = CubeModel.getMove(moveValues[random.nextInt(18)]);
-                if (pruner.prune(movePlaceholder, lastMovePlaceholder)) {
-                } else {
+                if (!pruner.prune(movePlaceholder, lastMovePlaceholder)) {
                     scramblePlaceholder.append(movePlaceholder).append(" ");
                     lastMovePlaceholder = movePlaceholder;
                     i++;
@@ -71,7 +70,7 @@ public class ScrambleGenerator {
             fileName = filePath.concat("solvableIn"+i+"Moves");
             try {
                 lines = Files.readAllLines(Paths.get(fileName), StandardCharsets.UTF_8);
-                scrambles = lines.toArray(lines.toArray(new String[lines.size()]));
+                scrambles = lines.toArray(lines.toArray(new String[0]));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

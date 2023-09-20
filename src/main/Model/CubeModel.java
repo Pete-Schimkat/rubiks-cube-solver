@@ -60,127 +60,6 @@ public class CubeModel {
     interface BooleanContains {
         boolean contains(int[] r, int x);
     }
-
-    /**
-     * Translates a primitive cube model into the model that will be used for computations.
-     *
-     * @param pm - the cube that will be translated
-     */
-    public CubeModel(SimpleCubeModel pm) {
-        this.edges = new Cubie[12];
-        this.corners = new Cubie[8];
-        this.centers = new COLOR[6];
-        this.centers[0] = COLOR.RED; // Up
-        this.centers[1] = COLOR.BLUE;  // Left
-        this.centers[2] = COLOR.WHITE; // Front
-        this.centers[3] = COLOR.GREEN; // Right
-        this.centers[4] = COLOR.YELLOW; // Back
-        this.centers[5] = COLOR.ORANGE; // Down
-
-        int[] r = new int[3];
-
-        //ULB
-        r[0] = pm.cube[0][0][0];
-        r[1] = pm.cube[1][0][0];
-        r[2] =  pm.cube[4][0][2];
-        this.corners[0] = new Cubie((byte) extractCornerIndex(r), (byte)extractCornerOrientation(r));
-        //URB
-        r[0] = pm.cube[0][0][2];
-        r[1] = pm.cube[4][0][0];
-        r[2] =  pm.cube[3][0][2];
-        this.corners[1] = new Cubie((byte) extractCornerIndex(r), (byte)extractCornerOrientation(r));
-
-
-        //URF
-        r[0] = pm.cube[0][2][2];
-        r[1] = pm.cube[3][0][0];
-        r[2] = pm.cube[2][0][2];
-        this.corners[2] = new Cubie((byte) extractCornerIndex(r), (byte)extractCornerOrientation(r));
-
-
-        //ULF
-        r[0] = pm.cube[0][2][0];
-        r[1] = pm.cube[2][0][0];
-        r[2] = pm.cube[1][0][2];
-        this.corners[3] = new Cubie((byte) extractCornerIndex(r), (byte)extractCornerOrientation(r));
-
-
-        //DLF
-        r[0] = pm.cube[5][0][0];
-        r[1] = pm.cube[1][2][2];
-        r[2] = pm.cube[2][2][0];
-        this.corners[4] = new Cubie((byte) extractCornerIndex(r), (byte)extractCornerOrientation(r));
-        //DLB
-        r[0] = pm.cube[5][2][0];
-        r[1] = pm.cube[4][2][2];
-        r[2] = pm.cube[1][2][0];
-        this.corners[5] = new Cubie((byte) extractCornerIndex(r), (byte)extractCornerOrientation(r));
-
-
-        //DRB
-        r[0] = pm.cube[5][2][2];
-        r[1] = pm.cube[3][2][2];
-        r[2] = pm.cube[4][2][0];
-        this.corners[6] = new Cubie((byte) extractCornerIndex(r), (byte)extractCornerOrientation(r));
-
-
-        //DRF
-        r[0] = pm.cube[5][0][2];
-        r[1] = pm.cube[2][2][2];
-        r[2] = pm.cube[3][2][0];
-        this.corners[7] = new Cubie((byte) extractCornerIndex(r), (byte)extractCornerOrientation(r));
-
-        //----------------EDGES-----------------//
-        //UB
-        r[0] = pm.cube[0][0][1];
-        r[1] = pm.cube[4][0][1];
-        this.edges[0] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
-        //UR
-        r[0] = pm.cube[0][1][2];
-        r[1] = pm.cube[3][0][1];
-        this.edges[1] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
-        //UF
-        r[0] = pm.cube[0][2][1];
-        r[1] = pm.cube[2][0][1];
-        this.edges[2] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
-        //UL
-        r[0] = pm.cube[0][1][0];
-        r[1] = pm.cube[1][0][1];
-        this.edges[3] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
-        //FR
-        r[0] = pm.cube[2][1][2];
-        r[1] = pm.cube[3][1][0];
-        this.edges[4] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
-        //FL
-        r[0] = pm.cube[2][1][0];
-        r[1] = pm.cube[1][1][2];
-        this.edges[5] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
-        //BL
-        r[0] = pm.cube[4][1][2];
-        r[1] = pm.cube[1][1][0];
-        this.edges[6] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
-        //BR
-        r[0] = pm.cube[4][1][0];
-        r[1] = pm.cube[3][1][2];
-        this.edges[7] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
-        //DF
-        r[0] = pm.cube[5][0][1];
-        r[1] = pm.cube[2][2][1];
-        this.edges[8] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
-        //DL
-        r[0] = pm.cube[5][1][0];
-        r[1] = pm.cube[1][2][1];
-        this.edges[9] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
-        //DB
-        r[0] = pm.cube[5][2][1];
-        r[1] = pm.cube[4][2][1];
-        this.edges[10] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
-        //DR
-        r[0] = pm.cube[5][1][2];
-        r[1] = pm.cube[3][2][1];
-        this.edges[11] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -210,13 +89,6 @@ public class CubeModel {
 
     public int extractCornerIndex(int[] r) {
         BooleanContains c = (d, x) -> (IntStream.of(d).anyMatch(y -> y == x));
-
-        /*boolean containsRed = IntStream.of(r).anyMatch(x -> x == 0);
-        boolean containsBlue = IntStream.of(r).anyMatch(x -> x == 1);
-        boolean containsWhite = IntStream.of(r).anyMatch(x -> x == 2);
-        boolean containsGreen = IntStream.of(r).anyMatch(x -> x == 3);
-        boolean containsYellow = IntStream.of(r).anyMatch(x -> x == 4);
-        boolean containsOrange = IntStream.of(r).anyMatch(x -> x == 4);*/
 
         if (c.contains(r, COLOR.RED.ordinal())) { //RED
             if (c.contains(r, COLOR.BLUE.ordinal())) { // BLUE
@@ -322,62 +194,50 @@ public class CubeModel {
             case UB -> {
                 result[0] = COLOR.RED;
                 result[1] = COLOR.YELLOW;
-                break;
             }
             case UR -> {
                 result[0] = COLOR.RED;
                 result[1] = COLOR.GREEN;
-                break;
             }
             case UF -> {
                 result[0] = COLOR.RED;
                 result[1] = COLOR.WHITE;
-                break;
             }
             case UL -> {
                 result[0] = COLOR.RED;
                 result[1] = COLOR.BLUE;
-                break;
             }
             case FR -> {
                 result[0] = COLOR.WHITE;
                 result[1] = COLOR.GREEN;
-                break;
             }
             case FL -> {
                 result[0] = COLOR.WHITE;
                 result[1] = COLOR.BLUE;
-                break;
             }
             case BL -> {
                 result[0] = COLOR.YELLOW;
                 result[1] = COLOR.BLUE;
-                break;
             }
             case BR -> {
                 result[0] = COLOR.YELLOW;
                 result[1] = COLOR.GREEN;
-                break;
             }
             case DF -> {
                 result[0] = COLOR.ORANGE;
                 result[1] = COLOR.WHITE;
-                break;
             }
             case DL -> {
                 result[0] = COLOR.ORANGE;
                 result[1] = COLOR.BLUE;
-                break;
             }
             case DB -> {
                 result[0] = COLOR.ORANGE;
                 result[1] = COLOR.YELLOW;
-                break;
             }
             case DR -> {
                 result[0] = COLOR.ORANGE;
                 result[1] = COLOR.GREEN;
-                break;
             }
         }
         if (edge.orientation == 1) {
@@ -389,6 +249,10 @@ public class CubeModel {
         return result;
     }
 
+    /**
+     * Retrieves the colors on any corner.
+     * @return - color-array with 3 entries with the colors on axis x,y,z respectively
+     */
     public COLOR[] getCornerColors(CORNER index) {
         COLOR[] result = new COLOR[3];
         byte cornerIndex = (byte) index.ordinal();
@@ -396,7 +260,7 @@ public class CubeModel {
 
         byte redOrOrange = 0, blueOrGreen = 0, yellowOrWhite = 0, temp = 0;
         if (corner.orientation == 0) {
-            redOrOrange = 0;
+            //redOrOrange = 0;
             blueOrGreen = 1;
             yellowOrWhite = 2;
 
@@ -411,12 +275,12 @@ public class CubeModel {
 
                     redOrOrange = 2;
                     blueOrGreen = 1;
-                    yellowOrWhite = 0;
+                    //yellowOrWhite = 0;
 
                 } else {
 
                     redOrOrange = 1;
-                    blueOrGreen = 0;
+                    //blueOrGreen = 0;
                     yellowOrWhite = 2;
 
                 }
@@ -424,14 +288,14 @@ public class CubeModel {
                 if ((cornerIndex % 2) == 1) {
 
                     redOrOrange = 2;
-                    blueOrGreen = 0;
+                    //blueOrGreen = 0;
                     yellowOrWhite = 1;
 
                 } else {
 
                     redOrOrange = 1;
                     blueOrGreen = 2;
-                    yellowOrWhite = 0;
+                    //yellowOrWhite = 0;
 
                 }
             }
@@ -440,7 +304,7 @@ public class CubeModel {
 
                 redOrOrange = 2;
                 blueOrGreen = 1;
-                yellowOrWhite = 0;
+                //yellowOrWhite = 0;
 
                 if ((cornerIndex % 2) == 1) {
                     redOrOrange = 1;
@@ -452,11 +316,11 @@ public class CubeModel {
 
                     redOrOrange = 1;
                     blueOrGreen = 2;
-                    yellowOrWhite = 0;
+                    //yellowOrWhite = 0;
 
                 } else {
                     redOrOrange = 2;
-                    blueOrGreen = 0;
+                    //blueOrGreen = 0;
                     yellowOrWhite = 1;
                 }
             }
@@ -466,49 +330,41 @@ public class CubeModel {
                 result[redOrOrange] = COLOR.RED;
                 result[blueOrGreen] = COLOR.BLUE;
                 result[yellowOrWhite] = COLOR.YELLOW;
-                break;
             }
             case URB -> {
                 result[redOrOrange] = COLOR.RED;
                 result[blueOrGreen] = COLOR.GREEN;
                 result[yellowOrWhite] = COLOR.YELLOW;
-                break;
             }
             case URF -> {
                 result[redOrOrange] = COLOR.RED;
                 result[blueOrGreen] = COLOR.GREEN;
                 result[yellowOrWhite] = COLOR.WHITE;
-                break;
             }
             case ULF -> {
                 result[redOrOrange] = COLOR.RED;
                 result[blueOrGreen] = COLOR.BLUE;
                 result[yellowOrWhite] = COLOR.WHITE;
-                break;
             }
             case DLF -> {
                 result[redOrOrange] = COLOR.ORANGE;
                 result[blueOrGreen] = COLOR.BLUE;
                 result[yellowOrWhite] = COLOR.WHITE;
-                break;
             }
             case DLB -> {
                 result[redOrOrange] = COLOR.ORANGE;
                 result[blueOrGreen] = COLOR.BLUE;
                 result[yellowOrWhite] = COLOR.YELLOW;
-                break;
             }
             case DRB -> {
                 result[redOrOrange] = COLOR.ORANGE;
                 result[blueOrGreen] = COLOR.GREEN;
                 result[yellowOrWhite] = COLOR.YELLOW;
-                break;
             }
             case DRF -> {
                 result[redOrOrange] = COLOR.ORANGE;
                 result[blueOrGreen] = COLOR.GREEN;
                 result[yellowOrWhite] = COLOR.WHITE;
-                break;
             }
         }
         return result;
@@ -681,8 +537,6 @@ public class CubeModel {
      * Returns the cube-relative index of an edge-cubie. Passing a positional edge, this method finds the cubie at that
      * position and returns the original index of the identified piece that is relative to the solved state of the cube.
      *
-     * @param edge
-     * @return
      */
     public byte getEdgeIndex(EDGE edge) {
         return this.edges[edge.ordinal()].index;
@@ -691,8 +545,6 @@ public class CubeModel {
     /**
      * Returns the orientation of an edge piece, relative to its position in the current state of the cube.
      *
-     * @param edge
-     * @return
      */
     public byte getEdgeOrientation(EDGE edge) {
         return this.edges[edge.ordinal()].orientation;
@@ -701,8 +553,6 @@ public class CubeModel {
     /**
      * Returns the cube-relative index of a corner-cubie.
      *
-     * @param corner
-     * @return
      */
     public byte getCornerIndex(CORNER corner) {
         return this.corners[corner.ordinal()].index;
@@ -711,8 +561,6 @@ public class CubeModel {
     /**
      * Returns the orientation of a corner-piece relative to its position in the current state of the cube.
      *
-     * @param corner
-     * @return
      */
     public byte getCornerOrientation(CORNER corner) {
         return this.corners[corner.ordinal()].orientation;
@@ -766,7 +614,7 @@ public class CubeModel {
      *
      * @param edge edge that will be flipped
      */
-    public void updateEdgeOrientationZ(EDGE edge) {
+    public void updateEdgeOrientation(EDGE edge) {
         this.edges[edge.ordinal()].orientation ^= 1;  //last bit inversion switches between 1 and 0
     }
 
@@ -894,10 +742,10 @@ public class CubeModel {
         this.updateCornerOrientation(CORNER.DRF, (byte) 2);
         this.updateCornerOrientation(CORNER.DLF, (byte) 1);
 
-        this.updateEdgeOrientationZ(EDGE.UF);
-        this.updateEdgeOrientationZ(EDGE.FL);
-        this.updateEdgeOrientationZ(EDGE.DF);
-        this.updateEdgeOrientationZ(EDGE.FR);
+        this.updateEdgeOrientation(EDGE.UF);
+        this.updateEdgeOrientation(EDGE.FL);
+        this.updateEdgeOrientation(EDGE.DF);
+        this.updateEdgeOrientation(EDGE.FR);
     }
 
     public void fPrime() {
@@ -918,10 +766,10 @@ public class CubeModel {
         this.updateCornerOrientation(CORNER.DRF, (byte) 2);
         this.updateCornerOrientation(CORNER.DLF, (byte) 1);
 
-        this.updateEdgeOrientationZ(EDGE.UF);
-        this.updateEdgeOrientationZ(EDGE.FL);
-        this.updateEdgeOrientationZ(EDGE.DF);
-        this.updateEdgeOrientationZ(EDGE.FR);
+        this.updateEdgeOrientation(EDGE.UF);
+        this.updateEdgeOrientation(EDGE.FL);
+        this.updateEdgeOrientation(EDGE.DF);
+        this.updateEdgeOrientation(EDGE.FR);
     }
 
     public void f2() {
@@ -1016,10 +864,10 @@ public class CubeModel {
         this.updateCornerOrientation(CORNER.DRB, (byte) 1);
         this.updateCornerOrientation(CORNER.DLB, (byte) 2);
 
-        this.updateEdgeOrientationZ(EDGE.UB);
-        this.updateEdgeOrientationZ(EDGE.BL);
-        this.updateEdgeOrientationZ(EDGE.DB);
-        this.updateEdgeOrientationZ(EDGE.BR);
+        this.updateEdgeOrientation(EDGE.UB);
+        this.updateEdgeOrientation(EDGE.BL);
+        this.updateEdgeOrientation(EDGE.DB);
+        this.updateEdgeOrientation(EDGE.BR);
     }
 
     public void bPrime() {
@@ -1040,10 +888,10 @@ public class CubeModel {
         this.updateCornerOrientation(CORNER.DRB, (byte) 1);
         this.updateCornerOrientation(CORNER.DLB, (byte) 2);
 
-        this.updateEdgeOrientationZ(EDGE.UB);
-        this.updateEdgeOrientationZ(EDGE.BL);
-        this.updateEdgeOrientationZ(EDGE.DB);
-        this.updateEdgeOrientationZ(EDGE.BR);
+        this.updateEdgeOrientation(EDGE.UB);
+        this.updateEdgeOrientation(EDGE.BL);
+        this.updateEdgeOrientation(EDGE.DB);
+        this.updateEdgeOrientation(EDGE.BR);
     }
 
     public void b2() {
@@ -1181,7 +1029,6 @@ public class CubeModel {
     public void z2() {
         System.out.println("Not implemented");
     }
-    /* -------------The following could be separated into another class ----------------- */
 
     public void move(MOVE ind) {
         switch (ind) {
@@ -1410,89 +1257,50 @@ public class CubeModel {
     }
 
     public static String getMove(MOVE ind) {
-        switch (ind) {
-            case L:
-                return "L";
-            case LPRIME:
-                return "L'";
-            case L2:
-                return "L2";
-            case R:
-                return "R";
-            case RPRIME:
-                return "R'";
-            case R2:
-                return "R2";
-            case U:
-                return "U";
-            case UPRIME:
-                return "U'";
-            case U2:
-                return "U2";
-            case D:
-                return "D";
-            case DPRIME:
-                return "D'";
-            case D2:
-                return "D2";
-            case F:
-                return "F";
-            case FPRIME:
-                return "F'";
-            case F2:
-                return "F2";
-            case B:
-                return "B";
-            case BPRIME:
-                return "B'";
-            case B2:
-                return "B2";
-            case Y:
-                return "Y";
-            case YPRIME:
-                return "Y'";
-            case Y2:
-                return "Y2";
-            case X:
-                return "X";
-            case XPRIME:
-                return "X'";
-            case X2:
-                return "X2";
-            case Z:
-                return "Z";
-            case ZPRIME:
-                return "Z'";
-            case Z2:
-                return "Z2";
-            case M:
-                return "M";
-            case MPRIME:
-                return "M'";
-            case M2:
-                return "M2";
-            case E:
-                return "E";
-            case EPRIME:
-                return "E'";
-            case E2:
-                return "E2";
-            case S:
-                return "S";
-            case SPRIME:
-                return "S'";
-            case S2:
-                return "S2";
-            default:
-                System.out.println("Something wrent wrong while trying to get the moveString @CubeModel.getMove");
-                return "AAAAA";
-        }
+        return switch (ind) {
+            case L -> "L";
+            case LPRIME -> "L'";
+            case L2 -> "L2";
+            case R -> "R";
+            case RPRIME -> "R'";
+            case R2 -> "R2";
+            case U -> "U";
+            case UPRIME -> "U'";
+            case U2 -> "U2";
+            case D -> "D";
+            case DPRIME -> "D'";
+            case D2 -> "D2";
+            case F -> "F";
+            case FPRIME -> "F'";
+            case F2 -> "F2";
+            case B -> "B";
+            case BPRIME -> "B'";
+            case B2 -> "B2";
+            case Y -> "Y";
+            case YPRIME -> "Y'";
+            case Y2 -> "Y2";
+            case X -> "X";
+            case XPRIME -> "X'";
+            case X2 -> "X2";
+            case Z -> "Z";
+            case ZPRIME -> "Z'";
+            case Z2 -> "Z2";
+            case M -> "M";
+            case MPRIME -> "M'";
+            case M2 -> "M2";
+            case E -> "E";
+            case EPRIME -> "E'";
+            case E2 -> "E2";
+            case S -> "S";
+            case SPRIME -> "S'";
+            case S2 -> "S2";
+        };
     }
 
 
     @Override
     public String toString() {
-        StringBuffer r = new StringBuffer();
+        StringBuilder r = new StringBuilder();
         //char[] colors = new char[]{'W','G', 'R', 'B', 'O', 'Y'};
         //char[] colors = new char[]{'F','R', 'T', 'L', 'D', 'B'};
         String[] colors = new String[]{"\uD83D\uDFE5", "\uD83D\uDFE6", "⬜", "\uD83D\uDFE9", "\uD83D\uDFE8", "\uD83D\uDFE7"};
@@ -1501,7 +1309,7 @@ public class CubeModel {
         int row = 0;
         for (; row < 3; row++) {
             r.append("           ");
-            for (col = 0; col < 3; col++) {
+            for (; col < 3; col++) {
                 r.append(colors[this.getColor(FACE.UP, (byte) row, (byte) col).ordinal()]);
                 r.append(" ");
             }
@@ -1592,4 +1400,125 @@ public class CubeModel {
             }
         }
     }
+
+    /**
+     * Translates a primitive cube model into the model that will be used for computations.
+     *
+     * @param pm - the cube that will be translated
+     */
+    public CubeModel(SimpleCubeModel pm) {
+        this.edges = new Cubie[12];
+        this.corners = new Cubie[8];
+        this.centers = new COLOR[6];
+        this.centers[0] = COLOR.RED; // Up
+        this.centers[1] = COLOR.BLUE;  // Left
+        this.centers[2] = COLOR.WHITE; // Front
+        this.centers[3] = COLOR.GREEN; // Right
+        this.centers[4] = COLOR.YELLOW; // Back
+        this.centers[5] = COLOR.ORANGE; // Down
+
+        int[] r = new int[3];
+
+        //ULB
+        r[0] = pm.cube[0][0][0];
+        r[1] = pm.cube[1][0][0];
+        r[2] =  pm.cube[4][0][2];
+        this.corners[0] = new Cubie((byte) extractCornerIndex(r), (byte)extractCornerOrientation(r));
+        //URB
+        r[0] = pm.cube[0][0][2];
+        r[1] = pm.cube[4][0][0];
+        r[2] =  pm.cube[3][0][2];
+        this.corners[1] = new Cubie((byte) extractCornerIndex(r), (byte)extractCornerOrientation(r));
+
+
+        //URF
+        r[0] = pm.cube[0][2][2];
+        r[1] = pm.cube[3][0][0];
+        r[2] = pm.cube[2][0][2];
+        this.corners[2] = new Cubie((byte) extractCornerIndex(r), (byte)extractCornerOrientation(r));
+
+
+        //ULF
+        r[0] = pm.cube[0][2][0];
+        r[1] = pm.cube[2][0][0];
+        r[2] = pm.cube[1][0][2];
+        this.corners[3] = new Cubie((byte) extractCornerIndex(r), (byte)extractCornerOrientation(r));
+
+
+        //DLF
+        r[0] = pm.cube[5][0][0];
+        r[1] = pm.cube[1][2][2];
+        r[2] = pm.cube[2][2][0];
+        this.corners[4] = new Cubie((byte) extractCornerIndex(r), (byte)extractCornerOrientation(r));
+        //DLB
+        r[0] = pm.cube[5][2][0];
+        r[1] = pm.cube[4][2][2];
+        r[2] = pm.cube[1][2][0];
+        this.corners[5] = new Cubie((byte) extractCornerIndex(r), (byte)extractCornerOrientation(r));
+
+
+        //DRB
+        r[0] = pm.cube[5][2][2];
+        r[1] = pm.cube[3][2][2];
+        r[2] = pm.cube[4][2][0];
+        this.corners[6] = new Cubie((byte) extractCornerIndex(r), (byte)extractCornerOrientation(r));
+
+
+        //DRF
+        r[0] = pm.cube[5][0][2];
+        r[1] = pm.cube[2][2][2];
+        r[2] = pm.cube[3][2][0];
+        this.corners[7] = new Cubie((byte) extractCornerIndex(r), (byte)extractCornerOrientation(r));
+
+        //----------------EDGES-----------------//
+        //UB
+        r[0] = pm.cube[0][0][1];
+        r[1] = pm.cube[4][0][1];
+        this.edges[0] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
+        //UR
+        r[0] = pm.cube[0][1][2];
+        r[1] = pm.cube[3][0][1];
+        this.edges[1] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
+        //UF
+        r[0] = pm.cube[0][2][1];
+        r[1] = pm.cube[2][0][1];
+        this.edges[2] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
+        //UL
+        r[0] = pm.cube[0][1][0];
+        r[1] = pm.cube[1][0][1];
+        this.edges[3] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
+        //FR
+        r[0] = pm.cube[2][1][2];
+        r[1] = pm.cube[3][1][0];
+        this.edges[4] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
+        //FL
+        r[0] = pm.cube[2][1][0];
+        r[1] = pm.cube[1][1][2];
+        this.edges[5] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
+        //BL
+        r[0] = pm.cube[4][1][2];
+        r[1] = pm.cube[1][1][0];
+        this.edges[6] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
+        //BR
+        r[0] = pm.cube[4][1][0];
+        r[1] = pm.cube[3][1][2];
+        this.edges[7] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
+        //DF
+        r[0] = pm.cube[5][0][1];
+        r[1] = pm.cube[2][2][1];
+        this.edges[8] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
+        //DL
+        r[0] = pm.cube[5][1][0];
+        r[1] = pm.cube[1][2][1];
+        this.edges[9] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
+        //DB
+        r[0] = pm.cube[5][2][1];
+        r[1] = pm.cube[4][2][1];
+        this.edges[10] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
+        //DR
+        r[0] = pm.cube[5][1][2];
+        r[1] = pm.cube[3][2][1];
+        this.edges[11] = new Cubie((byte) extractEdgeIndex(r), (byte) extractEdgeOrientation(r));
+    }
+
 }

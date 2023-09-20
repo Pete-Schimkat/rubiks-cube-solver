@@ -23,11 +23,11 @@ public class WeightedIDAStar extends CubeSearcher {
         int i = 0;
         while(true){
             SearchResult result =  this.search(root, (byte) 0, bound, new ArrayList<>());
-            if(result.isGoalFound()) return result;
-            if(result.getCost() == INF) {
+            if(result.goalFound()) return result;
+            if(result.cost() == INF) {
                 return result;
             }
-            bound = result.getCost();
+            bound = result.cost();
             i++;
 
             System.out.println("WIDA*: Finished search depth " + String.format("%-3s", i+".") + " Elapsed time: " + String.format("%-8s", (((double) (System.currentTimeMillis() - (start)) / 1000))) + " seconds.");
@@ -50,11 +50,11 @@ public class WeightedIDAStar extends CubeSearcher {
                 List<WeightedIDAStarNode> newPath = new ArrayList<>(path);
                 newPath.add(node);
                 SearchResult result = search(succ, g+1,bound,newPath);
-                if(result.isGoalFound()) {
+                if(result.goalFound()) {
                     return result;
                 }
-                if(result.getCost() < min) {
-                    min = result.getCost();
+                if(result.cost() < min) {
+                    min = result.cost();
                 }
             }
         }
@@ -62,7 +62,7 @@ public class WeightedIDAStar extends CubeSearcher {
 
     }
 
-    private double weightedHeuristic(WeightedIDAStarNode node, double bound) {
+    private double weightedHeuristic(WeightedIDAStarNode node) {
         return searchWeight*this.pdb.getNumMoves(node.cm);
     }
     public PriorityQueue<WeightedIDAStarNode> successors(WeightedIDAStarNode node) {
@@ -92,27 +92,7 @@ public class WeightedIDAStar extends CubeSearcher {
         return ret;
     }
 
-    public static class SearchResult {
-        private final boolean goalFound;
-        private final double cost;
-        private final List<WeightedIDAStarNode> path;
-
-        public SearchResult(boolean goalFound, double cost, List<WeightedIDAStarNode> path) {
-            this.goalFound = goalFound;
-            this.cost =cost;
-            this.path = path;
-        }
-        public boolean isGoalFound() {
-            return goalFound;
-        }
-
-        public double getCost() {
-            return cost;
-        }
-
-        public List<WeightedIDAStarNode> getPath() {
-            return path;
-        }
+    public record SearchResult(boolean goalFound, double cost, List<WeightedIDAStarNode> path) {
     }
  }
 

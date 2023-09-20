@@ -46,8 +46,6 @@ public class PatternDatabase {
     /**
      * Get the number of moves it takes from a solved state to get to a scrambled state.
      *
-     * @param ind
-     * @return
      */
     public byte getNumMoves(int ind) {
         return this.database.get(ind);
@@ -65,10 +63,6 @@ public class PatternDatabase {
         return this.numItems;
     }
 
-    /**
-     * Returns true if the database is filled
-     * @return
-     */
     public boolean isFull() {
         return (this.numItems == this.size);
     }

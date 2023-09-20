@@ -28,9 +28,4 @@ public class EdgePatternDatabase extends PatternDatabase {
 
         return rank * 128 + orientationNumber;
     }
-
-    public int getDatabaseIndex(CubeModel cm) {
-        return 0;
-    }
-
 }

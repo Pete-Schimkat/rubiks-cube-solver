@@ -99,11 +99,11 @@ public class KorfCubeSolver {
         List<WeightedIDAStarNode> solution;
         if(sixEdgeDatabase) {
             WeightedIDAStar ida3 = new WeightedIDAStar(this.combinedSmallPDB, weight);
-            solution = ida3.solve(new WeightedIDAStarNode(null, cm, null, (byte) 0, this.combinedSmallPDB.getNumMoves(cm))).getPath();
+            solution = ida3.solve(new WeightedIDAStarNode(null, cm, null, (byte) 0, this.combinedSmallPDB.getNumMoves(cm))).path();
         }
         else {
             WeightedIDAStar ida3 = new WeightedIDAStar(this.combinedPDB, weight);
-            solution = ida3.solve(new WeightedIDAStarNode(null, cm, null, (byte) 0, this.combinedPDB.getNumMoves(cm))).getPath();
+            solution = ida3.solve(new WeightedIDAStarNode(null, cm, null, (byte) 0, this.combinedPDB.getNumMoves(cm))).path();
         }
             StringBuilder solutionString = new StringBuilder();
             for (WeightedIDAStarNode s : solution) {
